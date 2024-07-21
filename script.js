@@ -11,10 +11,10 @@ document.addEventListener('DOMContentLoaded' , () =>{
     const taskText = taskInput.value.trim();
 
 
-    if (taskText=== "") {
+    if (taskText==="") {
       alert("try enter a valid task!");
     }
-    if (!taskText==="") {
+    else{
       const textBar = document.createElement('li');
       textBar.textContent = taskText;
 
@@ -22,24 +22,36 @@ document.addEventListener('DOMContentLoaded' , () =>{
       removeBtn.textContent = "Remove";
 
       removeBtn.classList.add('remove-btn');
-      removeBtn.onclick = function () {
-        taskList.removeChild(taskBar);
+      removeBtn.onclick = ()=>  {
+        taskList.removeChild(textBar);
         removeTask(taskText);
-      }
+      };
+
+      textBar.appendChild(removeBtn);
+      taskList.appendChild(textBar);
+
       taskInput.value = "";
 
     }
-    addButton.addEventListener('click',() => addTask());
-    
-    taskInput.addEventListener('keypress', (event) => {
-    if (event.key === 'Enter') {
-      addTask();
-    }
-    });
 
-    document.addEventListener('DOMContentLoaded', addTask);
+    
+    
+
+
   }
 
   
-  
-})
+  addButton.addEventListener('click',() => addTask());
+
+  taskInput.addEventListener('keypress', (event) => {
+    if (event.key === 'Enter') {
+    
+      if (taskInput.value ==="") {
+        alert("try enter a valid task!");
+      }else{
+        addTask();
+      }
+    }
+    });
+
+});
