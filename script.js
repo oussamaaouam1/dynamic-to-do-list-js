@@ -13,8 +13,9 @@ document.addEventListener('DOMContentLoaded' , () =>{
 
   // addTask function============
   function addTask(taskText, save = true) {
+    if (!taskText) {
     taskText = taskInput.value.trim();
-
+    }
 
     if (taskText==="") {
       alert("try enter a valid task!");
@@ -69,5 +70,5 @@ document.addEventListener('DOMContentLoaded' , () =>{
       }
     }
     });
-    
+    loadTasks();
 });
