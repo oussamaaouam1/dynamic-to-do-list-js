@@ -6,9 +6,14 @@ document.addEventListener('DOMContentLoaded' , () =>{
   const taskList = document.getElementById('task-list');
   
 
+  function loadTasks() {
+    const storedTasks = JSON.parse(localStorage.getItem('tasks') || '[]');
+    storedTasks.forEach(taskText => addTask(taskText, false)); // 'false' indicates not to save again to Local Storage
+}
+
   // addTask function============
-  function addTask() {
-    const taskText = taskInput.value.trim();
+  function addTask(taskText, save = true) {
+    taskText = taskInput.value.trim();
 
 
     if (taskText==="") {
@@ -32,9 +37,20 @@ document.addEventListener('DOMContentLoaded' , () =>{
 
       taskInput.value = "";
 
+      if (save) {
+        const storedTasks = JSON.parse(localStorage.getItem('tasks') || '[]');
+        storedTasks.push(taskText);
+        localStorage.setItem('tasks', JSON.stringify(storedTasks));
     }
 
+    }
     
+
+    function removeTask(taskText) {
+      const storedTasks = JSON.parse(localStorage.getItem('tasks') || '[]');
+      const updatedTasks = storedTasks.filter(task => task !== taskText);
+      localStorage.setItem('tasks', JSON.stringify(updatedTasks));
+    }
     
 
 
@@ -53,5 +69,5 @@ document.addEventListener('DOMContentLoaded' , () =>{
       }
     }
     });
-
+    
 });
